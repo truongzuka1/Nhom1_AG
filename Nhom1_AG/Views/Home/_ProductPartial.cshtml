@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Nhom1_AG.Models.Shoe>
+
+<h2 class="mb-4">Danh sách sản phẩm</h2>
+
+<form method="get" class="row g-3 mb-4">
+    <div class="col-md-4">
+        <input type="text" name="search" class="form-control" placeholder="Tìm theo tên..."
+               value="@ViewData["Search"]" />
+    </div>
+    <div class="col-md-4">
+        <select name="categoryId" class="form-select">
+            <option value="">-- Tất cả danh mục --</option>
+            @foreach (var category in ViewBag.Categories)
+            {
+                <option value="@category.Id"
+                        selected="@(ViewData["CategoryId"]?.ToString() == category.Id.ToString() ? "selected" : null)">
+                    @category.Name
+                </option>
+            }
+        </select>
+    </div>
+    <div class="col-md-4">
+        <button type="submit" class="btn btn-primary">Lọc</button>
+        <a asp-action="Index" asp-controller="Product" class="btn btn-outline-secondary">Reset</a>
+    </div>
+</form>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+<table class="table table-bordered">
+    <thead class="table-light">
+        <tr>
+            <th>Tên sản phẩm</th>
+            <th>Giá</th>
+            <th>Danh mục</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Price.ToString("N0") đ</td>
+                <td>@item.Category?.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (User.IsInRole("Admin"))
+{
+    <a asp-action="Create" asp-controller="Product" class="btn btn-success mt-3">+ Thêm sản phẩm</a>
+}

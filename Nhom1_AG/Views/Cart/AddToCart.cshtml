@@ -1,0 +1,25 @@
+﻿@model Nhom1_AG.ViewModels.CartViewModel
+@{
+    ViewData["Title"] = "Thêm sản phẩm vào giỏ hàng";
+}
+
+<h1 class="text-center text-success mb-4">Thêm sản phẩm vào giỏ hàng</h1>
+
+<form method="post" action="@Url.Action("AddToCart", "Cart")">
+    <div class="form-group">
+        <label for="shoeId">Chọn sản phẩm</label>
+        <select id="shoeId" name="shoeId" class="form-control">
+            <option value="1">Sản phẩm 1</option>
+            <option value="2">Sản phẩm 2</option>
+            <option value="3">Sản phẩm 3</option>
+            @* Lấy danh sách sản phẩm từ cơ sở dữ liệu *@
+        </select>
+    </div>
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary btn-lg">Thêm vào giỏ hàng</button>
+    </div>
+</form>
+
+<div class="text-center mt-4">
+    <a href="@Url.Action("Index", "Cart")" class="btn btn-secondary btn-lg">Quay lại giỏ hàng</a>
+</div>

@@ -1,0 +1,54 @@
+﻿@model Nhom1_AG.ViewModels.OrderViewModel
+
+@{
+    ViewData["Title"] = "Tạo đơn hàng mới";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">@ViewData["Title"]</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="CreateOrder" method="post">
+                        <div class="mb-3">
+                            <label asp-for="UserId" class="form-label">Người dùng</label>
+                            <select asp-for="UserId" class="form-select">
+                                <option value="">-- Chọn người dùng --</option>
+                                @* Ví dụ tạm thời, bạn có thể load từ ViewBag.Users *@
+                                <option value="1">User 1</option>
+                                <option value="2">User 2</option>
+                            </select>
+                            <span asp-validation-for="UserId" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Status" class="form-label">Trạng thái đơn hàng</label>
+                            <select asp-for="Status" class="form-select">
+                                <option value="">-- Chọn trạng thái --</option>
+                                <option value="Chờ xử lý">Chờ xử lý</option>
+                                <option value="Đang giao">Đang giao</option>
+                                <option value="Đã giao">Đã giao</option>
+                                <option value="Đã hủy">Đã hủy</option>
+                            </select>
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100">Tạo đơn hàng</button>
+                    </form>
+                </div>
+                <div class="card-footer text-end">
+                    <a asp-action="Index" class="btn btn-link">← Quay lại danh sách</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

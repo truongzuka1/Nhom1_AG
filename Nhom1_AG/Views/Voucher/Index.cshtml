@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Nhom1_AG.Models.Voucher>
+
+@{
+    ViewData["Title"] = "Danh sách Voucher";
+}
+
+<h2>Danh sách Voucher</h2>
+
+<!-- Thêm Voucher mới -->
+<a href="@Url.Action("Create")" class="btn btn-success">Tạo Voucher mới</a>
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tên Voucher</th>
+            <th>Giảm giá (%)</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var voucher in Model)
+        {
+            <tr>
+                <td>@voucher.VoucherId</td>
+                <td>@voucher.Code</td>
+                <td>@voucher.DiscountAmount</td>
+                <td>
+                    <!-- Thêm liên kết Xóa và Sửa -->
+                    <a href="@Url.Action("Delete", new { id = voucher.VoucherId })" class="btn btn-danger">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

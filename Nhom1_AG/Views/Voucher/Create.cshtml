@@ -1,0 +1,23 @@
+﻿@model Nhom1_AG.Models.Voucher
+
+@{
+    ViewData["Title"] = "Tạo Voucher Mới";
+}
+
+<h2>Tạo Voucher Mới</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label for="Name">Tên Voucher</label>
+        <input type="text" name="Name" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="DiscountPercentage">Giảm giá (%)</label>
+        <input type="number" name="DiscountPercentage" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-success">Tạo Voucher</button>
+</form>
+
+<a href="@Url.Action("Index")" class="btn btn-secondary">Quay lại danh sách Voucher</a>

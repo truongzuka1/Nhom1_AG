@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Nhom1_AG.Models.Shoe>
+
+@{
+    ViewData["Title"] = "Danh sách sản phẩm";
+    var selectedCategoryId = ViewData["CategoryId"]?.ToString();
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">@ViewData["Title"]</h2>
+
+    <form method="get" class="row g-3 mb-4">
+        <div class="col-md-4">
+            <input type="text" name="search" class="form-control" placeholder="Tìm theo tên..."
+                   value="@ViewData["Search"]" />
+        </div>
+
+        <div class="col-md-4">
+            <select name="categoryId" class="form-select">
+                <option value="">-- Tất cả danh mục --</option>
+                @foreach (var category in ViewBag.Categories)
+                {
+                    var isSelected = selectedCategoryId == category.Id.ToString() ? "selected" : "";
+                    <option value="@category.Id" selected="@isSelected">@category.Name</option>
+                }
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-primary">Lọc</button>
+            <a href="@Url.Action("Index")" class="btn btn-outline-secondary">Reset</a>
+        </div>
+    </form>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+
+    <table class="table table-bordered">
+        <thead class="table-light">
+            <tr>
+                <th>Tên sản phẩm</th>
+                <th>Giá</th>
+                <th>Danh mục</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Price.ToString("N0") đ</td>
+                    <td>@item.Category?.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <a asp-action="Create" class="btn btn-success mt-3">+ Thêm sản phẩm</a>
+    }
+</div>

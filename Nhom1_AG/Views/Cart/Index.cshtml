@@ -1,0 +1,45 @@
+﻿@model List<Nhom1_AG.Models.CartItem>
+
+@{
+    ViewData["Title"] = "Giỏ Hàng";
+}
+
+<h1 class="text-center text-primary mb-4">Giỏ Hàng</h1>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning" role="alert">
+        Giỏ hàng của bạn hiện đang trống. Hãy thêm sản phẩm vào giỏ hàng!
+    </div>
+}
+else
+{
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @* Bạn có thể thay đổi để lấy thông tin từ bảng Shoe *@
+                        Sản phẩm #@item.ShoeId
+                    </td>
+                    <td>@item.Quantity</td>
+                    <td>
+                        <a href="@Url.Action("RemoveFromCart", "Cart", new { id = item.ShoeId })" class="btn btn-danger btn-sm">Xóa</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="text-center">
+        <a href="@Url.Action("AddToCart", "Cart", new { shoeId = 1 })" class="btn btn-success btn-lg">Thêm sản phẩm vào giỏ</a>
+    </div>
+}
